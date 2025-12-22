@@ -1,9 +1,9 @@
-package de.rafael.guicalculator;
+package de.rafael.launcher;
 
 import javafx.application.Application;
 
 public class Launcher {
     static void main(String[] args) {
-        Application.launch(GuiCalculatorApplication.class, args);
+        Application.launch(StartingMenu.class, args);
     }
 }
