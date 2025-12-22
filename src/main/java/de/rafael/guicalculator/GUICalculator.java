@@ -29,7 +29,7 @@ public class GUICalculator {
     private Label output = new Label();
     private String textOutput = "";
 
-    public Scene createWindow(Stage stage) {
+    public void createWindow(Stage stage) {
         final short WINDOW_WIDTH = 700;
         final short WINDOW_HEIGHT = 900;
         Pane root = new Pane();
@@ -50,7 +50,10 @@ public class GUICalculator {
         root.getChildren().addAll(buttonsNumber);
         getCalculation();
         root.getChildren().add(this.output);
-        return mainWindow;
+        stage.setTitle("Calculator");
+        stage.setScene(mainWindow);
+        stage.setResizable(false);
+        stage.show();
     }
 
     private void addButton(Pane root, Button button) {
@@ -71,7 +74,7 @@ public class GUICalculator {
                 this.output.setText(this.textOutput);
                 System.out.println("First: " + this.firstNumberAsString);
             } else {
-                if(this.firstNumberAsString.isEmpty()){
+                if (this.firstNumberAsString.isEmpty()) {
                     this.firstNumberAsString = "0";
                     this.textOutput += this.firstNumberAsString + " ";
                     this.output.setText(this.textOutput);
@@ -94,7 +97,8 @@ public class GUICalculator {
                         case "+" -> firstNumber.add(secondNumber);
                         case "-" -> firstNumber.subtract(secondNumber);
                         case "x" -> firstNumber.multiply(secondNumber);
-                        case "/" -> !secondNumber.equals(BigInteger.ZERO) ? firstNumber.divide(secondNumber) : BigInteger.ZERO;
+                        case "/" ->
+                                !secondNumber.equals(BigInteger.ZERO) ? firstNumber.divide(secondNumber) : BigInteger.ZERO;
                         default -> BigInteger.ZERO;
                     };
                     this.textOutput += "= " + this.sum;
@@ -108,7 +112,7 @@ public class GUICalculator {
                 }
             } else {
                 this.operator = text;
-                this.textOutput += this.operator +" ";
+                this.textOutput += this.operator + " ";
                 this.output.setText(this.textOutput);
                 this.isOperatorPressed = true;
                 System.out.println("Operator: " + operator);
@@ -118,16 +122,12 @@ public class GUICalculator {
     }
 
     public void getDirectoryInformation() throws IOException {
-        ProcessBuilder processBuilder = new ProcessBuilder(
-                "cmd", "/c",
-                "echo Start && dir && echo Fertig"
-        );
+        ProcessBuilder processBuilder = new ProcessBuilder("cmd", "/c", "echo Start && dir && echo Fertig");
         Process process = processBuilder.start();
         StringBuilder filesInDirectory = new StringBuilder();
-        try(BufferedReader reader = new BufferedReader(
-                new InputStreamReader(process.getInputStream()))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
             String line;
-            while((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 filesInDirectory.append(line).append("\n");
             }
         }

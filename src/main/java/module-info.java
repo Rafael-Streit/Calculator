@@ -9,7 +9,10 @@ module de.rafael.guicalculator {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires javafx.graphics;
 
     opens de.rafael.guicalculator to javafx.fxml;
     exports de.rafael.guicalculator;
+    exports de.rafael.launcher;
+    opens de.rafael.launcher to javafx.fxml;
 }
